@@ -1,0 +1,88 @@
+
+#:import f __main__.f
+
+
+ScreenManager:
+    Test_Screen:
+    Selection_Screen_Backround:
+    Selection_Screen:
+    Final_Screen:
+<Test_Screen>:
+    name: "Test Screen"
+    Label:
+        text: "Welcome to the App!"
+    Button:
+        size_hint: 0.2,0.3
+        text: "Next Screen"
+        on_press: root.manager.current = 'screenfirst'
+
+<Selection_Screen_Backround>:
+    name: "screenfirst"
+    MyWidgets:
+        cols: 3
+        id: my_widgets
+        FileChooserIconView:
+
+            id: filechoosers
+            path: str(f)
+            on_selection: root.selected(filechoosers.selection), root.Imagefecher()
+
+        Image:
+            id: image
+            source: str(filechoosers.selection)
+        Button:
+            size_hint: 0.2,0.3
+            text: "Next"
+            on_press: root.manager.current = 'screen1'
+<Selection_Screen>:
+    name: "screen1"
+    MyWidget:
+        cols: 3
+        id: my_widget
+        FileChooserIconView:
+            id: filechooser
+
+            on_selection: app.selected(filechooser.selection), root.helo()
+
+        Image:
+            id: image
+            source: str(filechooser.selection)
+        Button:
+            size_hint: 0.2,0.3
+            text: "Next"
+            on_press: root.manager.current = 'final'
+<Final_Screen>:
+    name: "final"
+    Final_Widget
+
+        id: final_widget
+        Button:
+            size_hint: 0.2,0.3
+            text: "start"
+            on_press: root.helos()
+        Button:
+            pos_hint: {"center_x": 0.1, "center_y":0.7}
+            text: "Initialize Movement of "
+            on_press: root.mover()
+            size_hint: 0.2,0.3
+
+
+
+
+        Image:
+            id: imagess
+            source: "/Users/sanjayshreeyansgmail.com/Downloads/video-not-working.png"
+
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+        TextInput:
+            id: textinputbox
+            multiline: False
+            size_hint: 0.3,0.05
+            pos_hint: {"center_x": 0.5, "center_y": 0.1}
+            color: rgba(255,255,255,0.4)
+        Button:
+            size_hint: 0.2,0.3
+            text: "Render Text"
+            pos_hint: {"center_x": 0.9, "center_y": 0.15}
+            on_press: root.text_render(textinputbox.text)
